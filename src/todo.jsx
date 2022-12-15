@@ -1,20 +1,21 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Todo = () => {
   const [task, setTask] = useState("");
   const [taskList, setTaskList] = useState([]);
-  const [id, setId] = useState(0);
+  // const [id, setId] = useState(0);
   function addTask() {
     if (!task) {
       return alert("Your task filed is empty, please enter a valid task");
     } else {
       setTaskList((oldData) => {
-        return [{ id: id, task: task }, ...oldData];
+        return [{ id: uuidv4(), task: task }, ...oldData];
       });
       console.log(taskList);
-      setId((prev) => {
-        return (prev += 1);
-      });
+      // setId((prev) => {
+      //   return (prev += 1);
+      // });
       setTask("");
     }
   }
