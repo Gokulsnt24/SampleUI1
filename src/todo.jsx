@@ -6,14 +6,17 @@ const Todo = () => {
   const [task, setTask] = useState("");
   const [taskList, setTaskList] = useState([]);
   // const [id, setId] = useState(0);
+  const [updateId, setUpdateId] = useState(null);
+  const [newTask, setNewTask] = useState("");
   function addTask() {
     if (!task) {
       return alert("Your task filed is empty, please enter a valid task");
     } else {
       setTaskList((oldData) => {
+        // setUpdateId(0);
         return [{ id: uuidv4(), task: task }, ...oldData];
       });
-      console.log(taskList);
+      // console.log(taskList);
       // setId((prev) => {
       //   return (prev += 1);
       // });
@@ -25,12 +28,31 @@ const Todo = () => {
       return taskList.filter((item) => item.id !== index);
     });
   };
-  const updateTask = () => {
-    setTask(true);
-    console.log(task);
+  const updateTask = (item) => {
+    setUpdateId(item.id);
+    // setTask(item.task);
   };
-
-  /* <button onClick={(e) => setTask(e.target.value)}>Submit</button> */
+  const submitTask = (id) => {
+    console.log("new", newTask);
+    setTaskList((old) => {
+      console.log("old", old);
+      old.map((item) => {
+        console.log(item);
+        if (item.id === id) {
+          console.log("before update", item);
+          return (item.task = newTask);
+          console.log("updated", item);
+          // console.log("check", item.id, id);
+          // console.log("up", updateId);
+        } else {
+          return item;
+        }
+      });
+      return old;
+    });
+    setUpdateId(null);
+    setNewTask()
+  };
 
   return (
     <>
@@ -44,16 +66,23 @@ const Todo = () => {
       <button onClick={addTask}>Add Task</button>
       <h1>My tasks are as follows.</h1>
       <ol>
-        {taskList.map((item) => {
+        {console.log("list", taskList)}
+        {taskList.map((item, index) => {
+          // console.log(item);
           return (
             <>
-              <li key={item.id}>{item.task}</li>
+              <li key={index}>{item.task}</li>
               <button onClick={(e) => deleteTask(item.id)}>Delete task</button>
-              <button onClick={(e) => updateTask()}>Update task</button>
-              {task === true ? (
+              <button onClick={(e) => updateTask(item)}>Update task</button>
+              {updateId === item.id ? (
                 <>
-                  <input type="text" value={item.task} />
-                  <button>Submit</button>
+                  <input
+                    type="text"
+                    value={newTask}
+                    placeholder="Enter new task"
+                    onChange={(e) => setNewTask(e.target.value)}
+                  />
+                  <button onClick={() => submitTask(item.id)}>Submit</button>
                 </>
               ) : (
                 <></>
