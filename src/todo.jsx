@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+// import Update from "./update";
 
 const Todo = () => {
   const [task, setTask] = useState("");
@@ -21,9 +22,16 @@ const Todo = () => {
   }
   const deleteTask = (index) => {
     setTaskList(() => {
-      return taskList.filter((item) => item.id != index);
+      return taskList.filter((item) => item.id !== index);
     });
   };
+  const updateTask = () => {
+    setTask(true);
+    console.log(task);
+  };
+
+  /* <button onClick={(e) => setTask(e.target.value)}>Submit</button> */
+
   return (
     <>
       <input
@@ -41,6 +49,15 @@ const Todo = () => {
             <>
               <li key={item.id}>{item.task}</li>
               <button onClick={(e) => deleteTask(item.id)}>Delete task</button>
+              <button onClick={(e) => updateTask()}>Update task</button>
+              {task === true ? (
+                <>
+                  <input type="text" value={item.task} />
+                  <button>Submit</button>
+                </>
+              ) : (
+                <></>
+              )}
             </>
           );
         })}
