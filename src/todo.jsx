@@ -29,6 +29,7 @@ const Todo = () => {
     });
   };
   const updateTask = (item) => {
+    setNewTask("");
     setUpdateId(item.id);
     // setTask(item.task);
   };
@@ -51,7 +52,7 @@ const Todo = () => {
       return old;
     });
     setUpdateId(null);
-    setNewTask()
+    setNewTask("");
   };
 
   return (
