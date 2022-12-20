@@ -1,11 +1,11 @@
-const InputBox = ({ name, value, onChange, placeholder, type }) => {
+const InputBox = ({ name, value, setTask, placeholder, type }) => {
   return (
     <input
+      type={type}
       name={name}
       value={value}
-      onChange={(e) => onChange(name, e.target.value)}
+      onChange={(e) => setTask(e.target.value)}
       placeholder={placeholder}
-      type={type}
     />
   );
 };
@@ -15,4 +15,4 @@ InputBox.defaultProps = {
   placeholder: "Enter text here!",
 };
 
-export default InputBox
+export default InputBox;

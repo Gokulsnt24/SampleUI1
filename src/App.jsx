@@ -1,12 +1,9 @@
 import reactLogo from "./assets/react.svg";
-import Todo from "./todo";
+// import Todo from "./todo";
+import Parent from "./todo-props/parent";
 
 function App() {
-  return (
-    <>
-      <Todo />
-    </>
-  );
+  return <Parent />;
 }
 
 export default App;

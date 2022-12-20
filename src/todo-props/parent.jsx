@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Button from "./button";
+import InputBox from "./input";
+import Map from "./map";
 
-const Todo = () => {
+const Parent = () => {
   const [task, setTask] = useState("");
   const [taskList, setTaskList] = useState([]);
   const [updateId, setUpdateId] = useState(null);
@@ -22,7 +25,7 @@ const Todo = () => {
     });
   };
   const updateTask = (item) => {
-    setNewTask("");
+    setNewTask(item.task);
     setUpdateId(item.id);
   };
   const submitTask = (id) => {
@@ -42,40 +45,19 @@ const Todo = () => {
 
   return (
     <>
-      <input
-        type="text"
-        name="task"
-        value={task}
-        placeholder="Enter the task"
-        onChange={(e) => setTask(e.target.value)}
-      />
-      <button onClick={addTask}>Add Task</button>
+      <InputBox setTask={(value) => setTask(value)} value={task} />
+      <Button onClick={addTask} label={"Add task"} />
       <h1>My tasks are as follows.</h1>
-      <ol>
-        {taskList.map((item, index) => {
-          return (
-            <>
-              <li key={index}>{item.task}</li>
-              <button onClick={(e) => deleteTask(item.id)}>Delete task</button>
-              <button onClick={(e) => updateTask(item)}>Update task</button>
-              {updateId === item.id ? (
-                <>
-                  <input
-                    type="text"
-                    value={newTask}
-                    placeholder="Enter new task"
-                    onChange={(e) => setNewTask(e.target.value)}
-                  />
-                  <button onClick={() => submitTask(item.id)}>Submit</button>
-                </>
-              ) : (
-                <></>
-              )}
-            </>
-          );
-        })}
-      </ol>
+      <Map
+        taskList={taskList}
+        updateTask={updateTask}
+        setNewTask={setNewTask}
+        submitTask={submitTask}
+        updateId={updateId}
+        newTask={newTask}
+        deleteTask={deleteTask}
+      />
     </>
   );
 };
-export default Todo;
+export default Parent;
