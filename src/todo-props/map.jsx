@@ -14,18 +14,17 @@ const Map = ({
       <ol>
         {taskList.map((item, index) => {
           return (
-            <>
-              <List
-                item={item}
-                index={index}
-                updateTask={updateTask}
-                setNewTask={setNewTask}
-                submitTask={submitTask}
-                updateId={updateId}
-                newTask={newTask}
-                deleteTask={deleteTask}
-              />
-            </>
+            <List
+              key={index}
+              item={item}
+              index={index}
+              updateTask={updateTask}
+              setNewTask={setNewTask}
+              submitTask={submitTask}
+              updateId={updateId}
+              newTask={newTask}
+              deleteTask={deleteTask}
+            />
           );
         })}
       </ol>

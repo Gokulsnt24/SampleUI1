@@ -13,7 +13,7 @@ const List = ({
 }) => {
   return (
     <>
-      <li key={index}>{item.task}</li>
+      <li>{item.task}</li>
       <Button onClick={(e) => deleteTask(item.id)} label={"Delete"} />
       <Button onClick={(e) => updateTask(item)} label={"Update"} />
       {updateId === item.id ? (
